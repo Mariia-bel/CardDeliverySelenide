@@ -15,6 +15,7 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryTest {
+
     public String generateDate(int days) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
@@ -31,10 +32,10 @@ public class CardDeliveryTest {
         $("[data-test-id=name] input").setValue("Мария");
         $("[data-test-id=phone] input").setValue("+79103729929");
         $("[data-test-id=agreement]").click();
-        $$("button").find(exactText("Забронировать")).click();
+        $x("//span[@class='button__text']").click();
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(15))
-                .shouldBe(Condition.visible);
+                .shouldBe(text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(15))
+                .shouldBe(visible);
 
 
     }
